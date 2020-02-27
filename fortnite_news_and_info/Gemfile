@@ -1,4 +1,7 @@
 source "https://rubygems.org"
+gem 'uri'
+gem 'net/http'
+gem 'openssl'
 
 # Specify your gem's dependencies in fortnite_news_and_info.gemspec
 gemspec
