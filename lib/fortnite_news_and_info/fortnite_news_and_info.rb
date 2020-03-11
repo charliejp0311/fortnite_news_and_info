@@ -21,45 +21,48 @@ class FortniteNewsAndInfo::Fortnite
     end
 
     def parse_battle_royale_news
-        self.brNews["battleroyalenews"]["news"]["motds"].collect do |article|
-            @battle_royale_news << {:title => article["title"],:body => article["body"]}
-        end 
+        parse_news("battleroyalenews", "motds")
     end
 
     def parse_creative_news
-        self.brNews["creativenews"]["news"]["motds"].collect do |article|
-            @creative_news << {:title => article["title"],:body => article["body"]}
-        end 
+        parse_news("creativenews", "motds")
     end
 
     def parse_save_the_world_news
-        self.brNews["savetheworldnews"]["news"]["messages"].collect do |article|
-            @save_the_world_news << {:title => article["title"],:body => article["body"]}
-        end 
+        parse_news("savetheworldnews", "messages")
     end
 
     def parse_lifetime_keyboard
-        self.statsV2["lifetime"]["keyboardmouse"].each do |gamer|
-            @lifetime_keyboard << {":gamertag" => gamer[0], ":kills" => gamer[1]["kills"]}
-        end
+        parse_stats("keyboardmouse", @lifetime_keyboard)
     end
     
     def parse_lifetime_gamepad
-        self.statsV2["lifetime"]["gamepad"].each do |gamer|
-            @lifetime_gamepad << {":gamertag" => gamer[0], ":kills" => gamer[1]["kills"]}
-        end
+        parse_stats("gamepad", @lifetime_gamepad)
     end
     
     def parse_lifetime_touch
-        self.statsV2["lifetime"]["touch"].each do |gamer|
-            @lifetime_touch << {":gamertag" => gamer[0], ":kills" => gamer[1]["kills"]}
-        end
+        parse_stats("touch", @lifetime_touch)
     end
 
     def parse_lifetime_all
-        self.statsV2["lifetime"]["all"].each do |gamer|
-            @lifetime_all << {":gamertag" => gamer[0], ":kills" => gamer[1]["kills"]}
+        parse_stats("all", @lifetime_all)
+    end
+
+    def parse_news(catagory, article_type) 
+        self.brNews[catagory]["news"][article_type].collect do |article|
+            @battle_royale_news << {:title => article["title"],:body => article["body"]}
         end
     end
 
+    def parse_stats(section, array_using)
+        self.statsV2["lifetime"][section].each do |gamer|
+            stats = {}
+            gamer[1].each do |k,v|
+                stats[":#{k}"] = v 
+            end
+            array_using << {":gamertag" => gamer[0], ":stats" => stats }
+
+        end
+    end
+    
 end

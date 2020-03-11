@@ -19,63 +19,45 @@ class FortniteNewsAndInfo::CLI
             system "clear"
             case input
             when "1"
-                fn.battle_royale_news.each do |art|
-                    puts "~~~~~~~~~~"
-                    puts art[:title]
-                    puts "..."
-                    puts art[:body]
-                end
-                puts "~~~~~~~~~~"
+                print_article(fn.battle_royale_news)
             when "2"
-                fn.save_the_world_news.each do |art|
-                    puts "~~~~~~~~~~"
-                    puts art[:title]
-                    puts "..."
-                    puts art[:body]
-                end
-                puts "~~~~~~~~~~"
+                print_article(fn.save_the_world_news)
             when "3"
-                fn.creative_news.each do |art|
-                    puts "~~~~~~~~~~"
-                    puts art[:title]
-                    puts "..."
-                    puts art[:body]
-                end
-                puts "~~~~~~~~~~"
+                print_article(fn.creative_news)
             when "4"
-                i = 0
-                until i == 10 || i == (fn.lifetime_keyboard.length - 1) do
-                    puts "#{i + 1}. #{fn.lifetime_keyboard[i][":gamertag"]} with #{fn.lifetime_keyboard[i][":kills"]} kills!"
-                    i += 1
-                end
-                puts "~~~~~~~~~~"
+                print_top_users(fn.lifetime_keyboard)
             when "5"
-                i = 0
-                until i == 10 || i == (fn.lifetime_gamepad.length - 1) do
-                    puts "#{i + 1}. #{fn.lifetime_gamepad[i][":gamertag"]} with #{fn.lifetime_keyboard[i][":kills"]} kills!"
-                    i += 1
-                end
-                puts "~~~~~~~~~~"
+                print_top_users(fn.lifetime_gamepad)
             when "6"
-                i = 0
-                until i == 10 || i == (fn.lifetime_touch.length - 1) do
-                    puts "#{i + 1}. #{fn.lifetime_touch[i][":gamertag"]} with #{fn.lifetime_keyboard[i][":kills"]} kills!"
-                    i += 1
-                end
-                puts "~~~~~~~~~~"
+                print_top_users(fn.lifetime_touch)
             when "7"
-                i = 0
-                until i == 10 || i == (fn.lifetime_all.length - 1) do
-                    puts "#{i + 1}. #{fn.lifetime_all[i][":gamertag"]} with #{fn.lifetime_keyboard[i][":kills"]} kills!"
-                    i += 1
-                end
-                puts "~~~~~~~~~~"
+                print_top_users(fn.lifetime_all)
             end
 
         end
-
-        
-        #binding.pry
-        
+  
     end
+
+    def print_article(array_of_hashes)
+        array_of_hashes.each do |art|
+            puts "~~~~~~~~~~"
+            puts art[:title]
+            puts "..."
+            puts art[:body]
+        end
+        puts "~~~~~~~~~~"
+    end
+
+    def print_top_users(mixed_array)
+        i = 0
+        until i == 3 || i == (mixed_array.length - 1) do
+            puts "#{i + 1}. #{mixed_array[i][":gamertag"]} with:"
+            mixed_array[i][":stats"].each do |k,v|
+                puts "  #{k} =  #{v}"
+            end
+            i += 1
+        end
+        puts "~~~~~~~~~~"
+    end
+
 end
