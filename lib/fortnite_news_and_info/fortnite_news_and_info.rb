@@ -5,7 +5,7 @@ class FortniteNewsAndInfo::Fortnite
         @brNews = newAPIconection.getBRnews
         @pveNews = newAPIconection.getPVEnews
         @brEventFlags = newAPIconection.getBReventflags
-        #@brStore = getBRstore
+        @brStore = newAPIconection.getBRstore
         @statsV2 = newAPIconection.get_statsV2
     end
 

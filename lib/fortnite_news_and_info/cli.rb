@@ -11,14 +11,6 @@ class FortniteNewsAndInfo::CLI
         news = []
         news = fn.brNews
         binding.pry
-        # until input = "exit" do
-        #     case input
-        #     when "1"
-        #         puts fn.brNews
-        #     when "2"
-        #         puts fn.pveNews
-        #     end
-        # end
         
     end
 end
