@@ -5,12 +5,16 @@ class FortniteNewsAndInfo::CLI
         puts "Hello and welcome to Fortnite News and Info!"
         
         input = 0
-        until input == "4" do
+        until input == "8" do
             input == 0 ? (puts "What are you looking for? Please pick a number.") : (puts "Can I help you with something else? Please pick a number.") 
             puts "1. Battle Royale News"
             puts "2. Save the world News"
             puts "3. Creative news"
-            puts "4. Exit"
+            puts "4. Top ten lifetime Keyboard and mouse users"
+            puts "5. Top ten lifetime gamepad users"
+            puts "6. Top ten lifetime touch device users"
+            puts "7. Top ten lifetime users"
+            puts "8. Exit"
             input = gets.chomp
             system "clear"
             case input
@@ -36,6 +40,34 @@ class FortniteNewsAndInfo::CLI
                     puts art[:title]
                     puts "..."
                     puts art[:body]
+                end
+                puts "~~~~~~~~~~"
+            when "4"
+                i = 0
+                until i == 10 || i == (fn.lifetime_keyboard.length - 1) do
+                    puts "#{i + 1}. #{fn.lifetime_keyboard[i][":gamertag"]} with #{fn.lifetime_keyboard[i][":kills"]} kills!"
+                    i += 1
+                end
+                puts "~~~~~~~~~~"
+            when "5"
+                i = 0
+                until i == 10 || i == (fn.lifetime_gamepad.length - 1) do
+                    puts "#{i + 1}. #{fn.lifetime_gamepad[i][":gamertag"]} with #{fn.lifetime_keyboard[i][":kills"]} kills!"
+                    i += 1
+                end
+                puts "~~~~~~~~~~"
+            when "6"
+                i = 0
+                until i == 10 || i == (fn.lifetime_touch.length - 1) do
+                    puts "#{i + 1}. #{fn.lifetime_touch[i][":gamertag"]} with #{fn.lifetime_keyboard[i][":kills"]} kills!"
+                    i += 1
+                end
+                puts "~~~~~~~~~~"
+            when "7"
+                i = 0
+                until i == 10 || i == (fn.lifetime_all.length - 1) do
+                    puts "#{i + 1}. #{fn.lifetime_all[i][":gamertag"]} with #{fn.lifetime_keyboard[i][":kills"]} kills!"
+                    i += 1
                 end
                 puts "~~~~~~~~~~"
             end
