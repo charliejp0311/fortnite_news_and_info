@@ -21,15 +21,15 @@ class FortniteNewsAndInfo::Fortnite
     end
 
     def parse_battle_royale_news
-        parse_news("battleroyalenews", "motds")
+        parse_news("battleroyalenews", "motds", @battle_royale_news)
     end
 
     def parse_creative_news
-        parse_news("creativenews", "motds")
+        parse_news("creativenews", "motds", @creative_news)
     end
 
     def parse_save_the_world_news
-        parse_news("savetheworldnews", "messages")
+        parse_news("savetheworldnews", "messages", @save_the_world_news)
     end
 
     def parse_lifetime_keyboard
@@ -48,9 +48,9 @@ class FortniteNewsAndInfo::Fortnite
         parse_stats("all", @lifetime_all)
     end
 
-    def parse_news(catagory, article_type) 
+    def parse_news(catagory, article_type, array_to_use) 
         self.brNews[catagory]["news"][article_type].collect do |article|
-            @battle_royale_news << {:title => article["title"],:body => article["body"]}
+            array_to_use << {:title => article["title"],:body => article["body"]}
         end
     end
 
@@ -64,5 +64,5 @@ class FortniteNewsAndInfo::Fortnite
 
         end
     end
-    
+
 end
