@@ -9,7 +9,7 @@ class FortniteNewsAndInfo::Fortnite
         @save_the_world_news = []
         parse_battle_royale_news
         parse_creative_news
-        #parse_save_the_world_news
+        parse_save_the_world_news
     end
 
     def parse_battle_royale_news
@@ -25,7 +25,7 @@ class FortniteNewsAndInfo::Fortnite
     end
 
     def parse_save_the_world_news
-        self.brNews["savetheworldnews"]["news"]["motds"].collect do |article|
+        self.brNews["savetheworldnews"]["news"]["messages"].collect do |article|
             @save_the_world_news << {:title => article["title"],:body => article["body"]}
         end 
     end
