@@ -1,0 +1,16 @@
+I need to make objects instead of saving everything into a variable
+    what kinds of objects do I want
+        general subject
+        article 
+        stats type ... maybe
+        gamer ~ gmaer tag / gmaer stats 
+        gamer_type ~ keyboard jockey / game console jockey / phone-tablet jockey 
+
+I need the program to go 2 levels deep 
+    go into first menu get second menu/attaches to a different object
+        one to many do you want news or gamer stats
+            news
+                article link if available
+            gamer
+                type of gamer
+                gamer rank

@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-
-require_relative "../lib/environment.rb"
 system "clear"
-
+require_relative "../lib/environment.rb"
 FortniteNewsAndInfo::CLI.new.call

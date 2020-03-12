@@ -59,5 +59,9 @@ class FortniteNewsAndInfo::CLI
         end
         puts "~~~~~~~~~~"
     end
+    ###new print method for single user
+    def print_gamer(gamer)
+        puts "#{gamer.name} has a score of #{gamer.stats[":score"]}!"
+    end
 
 end
