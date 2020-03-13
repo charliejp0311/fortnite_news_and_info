@@ -17,6 +17,7 @@ class FortniteNewsAndInfo::CLI
             puts "8. Exit"
             input = gets.chomp
             system "clear"
+            #binding.pry
             case input
             when "1"
                 print_article(fn.battle_royale_news)
@@ -59,6 +60,8 @@ class FortniteNewsAndInfo::CLI
         end
         puts "~~~~~~~~~~"
     end
+
+
     ###new print method for single user
     def print_gamer(gamer)
         puts "#{gamer.name} has a score of #{gamer.stats[":score"]}!"

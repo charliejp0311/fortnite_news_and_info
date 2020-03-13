@@ -1,6 +1,6 @@
 class Gamer
     attr_accessor :name, :stats, :gamertype
-    extend FortniteNewsAndInfo::ClassMethods, FortniteNewsAndInfo::Findable
+    extend Concerns::Findable
     @@all = []
 
     def initialize(gamer, stats, gamertype)

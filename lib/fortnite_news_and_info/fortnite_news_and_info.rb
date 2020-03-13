@@ -14,6 +14,8 @@ class FortniteNewsAndInfo::Fortnite
         ####
         gtypes                      ## genrerates gmae types and the masster list of game types
         fortniteGamers              ## generates all gamers
+        news_type
+        add_articles
         #binding.pry
         
         #####################################
@@ -85,6 +87,29 @@ class FortniteNewsAndInfo::Fortnite
     ########
     #Code for converting this to objects instead of variables
     ########
+    #get subjects
+    def news_type
+        self.brNews.each do |name, data|
+            NewsType.new(name)
+        end
+
+    end
+
+    ##add articles
+    def add_articles
+        NewsType.all.each do |s|
+            if s.name == "battleroyalenews"
+                details = {}
+                i=0
+                self.brNews["#{s.name}"]["news"]["motds"][i].each do |k,v|
+                    details[":#{k}"] = v 
+                    binding.pry
+                    i += 1
+                end
+                
+            end
+        end
+    end
 
     #gets gamer types adds to array of gamertypes and creates gamertype objects
     def gtypes
