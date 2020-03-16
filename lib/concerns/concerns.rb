@@ -7,7 +7,9 @@ module Concerns
         def find_or_create_by_name(name)
           find_by_name(name) ? find_by_name(name) : self.create(name)
         end
-
+        # def all
+        #   self.all
+        # end
         def create(name)
           self.new(name)
         end
@@ -20,5 +22,11 @@ module Concerns
           self.all.count
         end
     end
+
+    # module InstanceMethods
+    #   def save
+    #     self.all << self
+    #   end
+    # end
 
 end

@@ -5,62 +5,111 @@ class FortniteNewsAndInfo::CLI
         puts "Hello and welcome to Fortnite News and Info!"
         
         input = 0
-        until input == "8" do
+        until input == "3" do
             input == 0 ? (puts "What are you looking for? Please pick a number.") : (puts "Can I help you with something else? Please pick a number.") 
-            puts "1. Battle Royale News"
-            puts "2. Save the world News"
-            puts "3. Creative news"
-            puts "4. Top lifetime Keyboard and mouse users"
-            puts "5. Top lifetime gamepad users"
-            puts "6. Top lifetime touch device users"
-            puts "7. Top lifetime users"
-            puts "8. Exit"
+            puts "1. Fortnite News"
+            puts "2. Lifetime Leaders"
+            puts "3. Exit"
             input = gets.chomp
             system "clear"
             #binding.pry
             case input
             when "1"
-                print_article(fn.battle_royale_news)
+                system "clear"
+                puts "Great choice!"
+                puts "What news subject would you like to check out?"
+                fortnite_news 
             when "2"
-                print_article(fn.save_the_world_news)
-            when "3"
-                print_article(fn.creative_news)
-            when "4"
-                print_top_users(fn.lifetime_keyboard)
-            when "5"
-                print_top_users(fn.lifetime_gamepad)
-            when "6"
-                print_top_users(fn.lifetime_touch)
-            when "7"
-                print_top_users(fn.lifetime_all)
+                system "clear"
+                puts "Great choice!"
+                puts "What news type of player would you like to check out?"
+                lifetime_stats
             end
 
         end
   
     end
-
-    def print_article(array_of_hashes)
-        array_of_hashes.each do |art|
-            puts "~~~~~~~~~~"
-            puts art[:title]
-            puts "..."
-            puts art[:body]
-        end
-        puts "~~~~~~~~~~"
-    end
-
-    def print_top_users(mixed_array)
-        i = 0
-        until i == 3 || i == (mixed_array.length - 1) do
-            puts "#{i + 1}. #{mixed_array[i][":gamertag"]} with:"
-            mixed_array[i][":stats"].each do |k,v|
-                puts "  #{k} =  #{v}"
+    #new menu with news options
+    def fortnite_news
+        news_selection = 0
+        until news_selection == "#{NewsType.all.length + 1}" do
+            list = []
+            i = 1
+            NewsType.all.each do |subj|
+                list << subj.name
+                puts "#{i}. #{subj.name}"
+                i += 1
             end
-            i += 1
+            puts "#{NewsType.all.length + 1}. Main menu"
+            news_selection = gets.chomp
+            case news_selection
+            when "1"
+                system "clear"
+                NewsType.find_by_name(list[0]).articles.each do |article|
+                    print_article(article)
+                end
+            when "2"
+                system "clear"
+                NewsType.find_by_name(list[1]).articles.each do |article|
+                    print_article(article)
+                end
+            when "3"
+                system "clear"
+                NewsType.find_by_name(list[2]).articles.each do |article|
+                    print_article(article)
+                end
+            end
         end
-        puts "~~~~~~~~~~"
+    end
+    #new menu with lifetime stats
+    def lifetime_stats
+        selection = 0
+        until selection == "#{GamerType.all.length + 1}" do
+            i = 1
+            GamerType.all.each do |gt|
+                puts "#{i}. #{gt.name}"
+                i += 1
+            end
+            puts "#{GamerType.all.length + 1}. Main Menu"
+            selection = gets.chomp
+            case selection
+            when "1"
+                system "clear"
+                GamerType.all[selection.to_i - 1].top_gamers_list.each do |g|
+                    print_gamer(g)
+                end
+            when "2"
+                system "clear"
+                GamerType.all[selection.to_i - 1].top_gamers_list.each do |g|
+                    print_gamer(g)
+                end
+            when "3"
+                system "clear"
+                GamerType.all[selection.to_i - 1].top_gamers_list.each do |g|
+                    print_gamer(g)
+                end
+            when "4"
+                system "clear"
+                GamerType.all[selection.to_i - 1].top_gamers_list.each do |g|
+                    print_gamer(g)
+                end
+            end
+
+        end
+
+
     end
 
+    def print_article(a)
+        #binding.pry
+        puts "~~~~~~~~~~~~~~~~~~~~~"
+        puts a.name
+        puts "~"
+        puts "  #{a.body}"
+        puts "~"
+        puts a.image
+        puts ""
+    end
 
     ###new print method for single user
     def print_gamer(gamer)

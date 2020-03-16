@@ -12,85 +12,19 @@ class FortniteNewsAndInfo::Fortnite
         ####
         # new code to work with objects rather than stored variables
         ####
-        gtypes                      ## genrerates gmae types and the masster list of game types
-        fortniteGamers              ## generates all gamers
+        gtypes                      
+        fortniteGamers              
         news_type
         add_articles
         #binding.pry
-        
-        #####################################
-        #previous storage hope to delete varriables and method calls due to using objects instead
-        #####################################
-        @battle_royale_news = []            #
-        @creative_news = []                 #
-        @save_the_world_news = []           #
-        @lifetime_keyboard = []             #
-        @lifetime_gamepad = []              #
-        @lifetime_touch = []                #
-        @lifetime_all = []                  #
-        parse_battle_royale_news            #
-        parse_creative_news                 #
-        parse_save_the_world_news           #
-        parse_lifetime_keyboard             #
-        parse_lifetime_gamepad              #
-        parse_lifetime_touch                #
-        parse_lifetime_all                  #
-        #####################################
-
-    end
-
-    def parse_battle_royale_news
-        parse_news("battleroyalenews", "motds", @battle_royale_news)
-    end
-
-    def parse_creative_news
-        parse_news("creativenews", "motds", @creative_news)
-    end
-
-    def parse_save_the_world_news
-        parse_news("savetheworldnews", "messages", @save_the_world_news)
-    end
-
-    def parse_lifetime_keyboard
-        parse_stats("keyboardmouse", @lifetime_keyboard)
     end
     
-    def parse_lifetime_gamepad
-        parse_stats("gamepad", @lifetime_gamepad)
-    end
-    
-    def parse_lifetime_touch
-        parse_stats("touch", @lifetime_touch)
-    end
-
-    def parse_lifetime_all
-        parse_stats("all", @lifetime_all)
-    end
-
-    def parse_news(catagory, article_type, array_to_use) 
-        self.brNews[catagory]["news"][article_type].collect do |article|
-            array_to_use << {:title => article["title"],:body => article["body"]}
-        end
-    end
-
-    def parse_stats(section, array_using)
-        self.statsV2["lifetime"][section].each do |gamer|
-            stats = {}
-            gamer[1].each do |k,v|
-                stats[":#{k}"] = v 
-            end
-            array_using << {":name" => gamer[0], ":stats" => stats }
-
-        end
-    end
-
-    ########
-    #Code for converting this to objects instead of variables
-    ########
     #get subjects
     def news_type
         self.brNews.each do |name, data|
-            NewsType.new(name)
+            if name == "battleroyalenews" || name == "creativenews" || name == "savetheworldnews" 
+                NewsType.new(name)
+            end
         end
 
     end
@@ -98,15 +32,16 @@ class FortniteNewsAndInfo::Fortnite
     ##add articles
     def add_articles
         NewsType.all.each do |s|
-            if s.name == "battleroyalenews"
-                details = {}
-                i=0
-                self.brNews["#{s.name}"]["news"]["motds"][i].each do |k,v|
-                    details[":#{k}"] = v 
-                    binding.pry
-                    i += 1
+            if s.name == "savetheworldnews"
+                self.brNews["#{s.name}"]["news"]["messages"].each do |a_data|
+                    na = Article.new(a_data["title"], a_data["body"], s, a_data["image"])
+                    s.articles << na
                 end
-                
+            else
+                self.brNews["#{s.name}"]["news"]["motds"].each do |a_data|
+                    na = Article.new(a_data["title"], a_data["body"], s, a_data["image"])
+                    s.articles << na
+                end
             end
         end
     end
@@ -131,6 +66,8 @@ class FortniteNewsAndInfo::Fortnite
                 mxd_ary << {":name" => gamer[0], ":stats" => stats }
             end
             Gamer.create_gamer(gt, mxd_ary)
+            gt.gamers_scores
+            gt.top_gamers
         end
 
     end

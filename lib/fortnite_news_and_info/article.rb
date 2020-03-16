@@ -1,12 +1,12 @@
 class Article
-    attr_accessor :name, :article, :subject, :details
+    attr_accessor :name, :body, :subject, :image
     extend Concerns::Findable
-    @@all
-    def initialize(name, body, subject, details)
+    @@all = []
+    def initialize(name, body, subject, image)
         @name = name
         @body = body
         @subject = subject
-        @details = details
+        @image = image
         save
     end
 
@@ -17,4 +17,9 @@ class Article
     def self.all
         @@all
     end
+
+    def find_by_name(name)
+        self.all.detect {|a| a.name == name}
+    end
+
 end
