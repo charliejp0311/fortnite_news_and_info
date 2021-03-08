@@ -34,19 +34,19 @@ class FortniteNewsAndInfo::Fortnite
     ##add articles
     def add_articles
         NewsType.all.each do |s|
-            # binding.pry 
-            # if s.name == "savetheworldnews" || s.name == "battleroyalenews"
-                # binding.pry 
-                # self.brNews["#{s.name}"]["news"]["messages"].each do |a_data|
-                    # na = Article.new(a_data["title"], a_data["body"], s, a_data["image"])
-                    # s.articles << na
-                # end
-            # else
+            binding.pry 
+            if s.name == "savetheworldnews"
+                binding.pry 
+                self.brNews["#{s.name}"]["news"]["messages"].each do |a_data|
+                    na = Article.new(a_data["title"], a_data["body"], s, a_data["image"])
+                    s.articles << na
+                end
+            else
                 self.brNews["#{s.name}"]["news"]["motds"].each do |a_data|
                     na = Article.new(a_data["title"], a_data["body"], s, a_data["image"])
                     s.articles << na
                 end
-            # end
+            end
         end
     end
 
