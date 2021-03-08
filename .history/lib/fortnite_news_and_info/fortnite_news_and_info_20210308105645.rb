@@ -22,8 +22,8 @@ class FortniteNewsAndInfo::Fortnite
     
     #get subjects
     def news_type
+        binding.pry
         self.brNews.each do |name, data|
-            # binding.pry
             if name == "battleroyalenews" || name == "creativenews" || name == "savetheworldnews" 
                 NewsType.new(name)
             end
@@ -33,9 +33,9 @@ class FortniteNewsAndInfo::Fortnite
 
     ##add articles
     def add_articles
+        # binding.pry 
         NewsType.all.each do |s|
             if s.name == "savetheworldnews"
-                binding.pry 
                 self.brNews["#{s.name}"]["news"]["messages"].each do |a_data|
                     na = Article.new(a_data["title"], a_data["body"], s, a_data["image"])
                     s.articles << na

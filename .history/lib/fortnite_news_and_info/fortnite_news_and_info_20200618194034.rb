@@ -1,6 +1,5 @@
 class FortniteNewsAndInfo::Fortnite 
     attr_accessor :brNews, :statsV2, :battle_royale_news, :creative_news, :save_the_world_news, :lifetime_keyboard, :lifetime_gamepad, :lifetime_touch, :lifetime_all
-    require 'pry'
     def initialize
         
         ####
@@ -23,7 +22,6 @@ class FortniteNewsAndInfo::Fortnite
     #get subjects
     def news_type
         self.brNews.each do |name, data|
-            # binding.pry
             if name == "battleroyalenews" || name == "creativenews" || name == "savetheworldnews" 
                 NewsType.new(name)
             end
@@ -35,7 +33,6 @@ class FortniteNewsAndInfo::Fortnite
     def add_articles
         NewsType.all.each do |s|
             if s.name == "savetheworldnews"
-                binding.pry 
                 self.brNews["#{s.name}"]["news"]["messages"].each do |a_data|
                     na = Article.new(a_data["title"], a_data["body"], s, a_data["image"])
                     s.articles << na
