@@ -42,7 +42,7 @@ class FortniteNewsAndInfo::Fortnite
                     # s.articles << na
                 # end
             # else
-                self.brNews["#{s.name}"]["news"]["messages"].each do |a_data|
+                self.brNews["#{s.name}"]["news"]["motds"].each do |a_data|
                     na = Article.new(a_data["title"], a_data["body"], s, a_data["image"])
                     s.articles << na
                 end
@@ -64,6 +64,7 @@ class FortniteNewsAndInfo::Fortnite
         GamerType.all.each do |gt| 
             mxd_ary = []
             self.statsV2["lifetime"]["#{gt.name}"].each do |gamer|
+                binding.pry
                 stats = {}
                 gamer[1].each do |k,v|
                     stats[":#{k}"] = v 
@@ -73,7 +74,6 @@ class FortniteNewsAndInfo::Fortnite
             Gamer.create_gamer(gt, mxd_ary)
             gt.gamers_scores
             gt.top_gamers
-            # binding.pry
         end
 
     end

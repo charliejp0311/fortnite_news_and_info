@@ -42,7 +42,7 @@ class FortniteNewsAndInfo::Fortnite
                     # s.articles << na
                 # end
             # else
-                self.brNews["#{s.name}"]["news"]["messages"].each do |a_data|
+                self.brNews["#{s.name}"]["news"]["motds"].each do |a_data|
                     na = Article.new(a_data["title"], a_data["body"], s, a_data["image"])
                     s.articles << na
                 end
@@ -53,7 +53,7 @@ class FortniteNewsAndInfo::Fortnite
     #gets gamer types adds to array of gamertypes and creates gamertype objects
     def gtypes
         self.statsV2["lifetime"].each do |gt, gs|
-            # binding.pry
+            binding.pry
             GamerType.find_or_create_by_name(gt)
         end
     end
@@ -73,7 +73,6 @@ class FortniteNewsAndInfo::Fortnite
             Gamer.create_gamer(gt, mxd_ary)
             gt.gamers_scores
             gt.top_gamers
-            # binding.pry
         end
 
     end

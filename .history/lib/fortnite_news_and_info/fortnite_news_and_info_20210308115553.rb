@@ -42,7 +42,7 @@ class FortniteNewsAndInfo::Fortnite
                     # s.articles << na
                 # end
             # else
-                self.brNews["#{s.name}"]["news"]["messages"].each do |a_data|
+                self.brNews["#{s.name}"]["news"]["motds"].each do |a_data|
                     na = Article.new(a_data["title"], a_data["body"], s, a_data["image"])
                     s.articles << na
                 end
